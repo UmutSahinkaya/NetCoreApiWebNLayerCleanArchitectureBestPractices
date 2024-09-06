@@ -1,5 +1,6 @@
 ﻿using App.Repositories;
 using App.Repositories.Products;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace App.Services.Products;
@@ -16,7 +17,15 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
             Data = productsAsDto
         };
     }
-    public async Task<ServiceResult<ProductDto>> GetProductByIdAsync(int id)
+
+    public async Task<ServiceResult<List<ProductDto>>> GetAllListAsync()
+    {
+        var products = await productRepository.GetAll().ToListAsync();
+        var productsAsDto = products.Select(p => new ProductDto(p.Id, p.Name, p.Price, p.Stock)).ToList();
+        return ServiceResult<List<ProductDto>>.Success(productsAsDto);
+    }
+
+    public async Task<ServiceResult<ProductDto?>> GetByIdAsync(int id)
     {
         var product = await productRepository.GetByIdAsync(id);
         if (product is null)
@@ -24,10 +33,9 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
             ServiceResult<ProductDto>.Fail("Product not found", HttpStatusCode.NotFound);
         }
         var productAsDto = new ProductDto(product!.Id, product.Name, product.Price, product.Stock);
-        return ServiceResult<ProductDto>.Success(productAsDto!);
+        return ServiceResult<ProductDto>.Success(productAsDto)!;
     }
-
-    public async Task<ServiceResult<CreateProductResponse>> CreateProductAsync(CreateProductRequest request)
+    public async Task<ServiceResult<CreateProductResponse>> CreateAsync(CreateProductRequest request)
     {
         var product = new Product()
         {
@@ -39,7 +47,7 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
         await unitOfWork.SaveChangesAsync();
         return ServiceResult<CreateProductResponse>.Success(new CreateProductResponse(product.Id));
     }
-    public async Task<ServiceResult> UpdateProductAsync(int id, UpdateProductRequest request)
+    public async Task<ServiceResult> UpdateAsync(int id, UpdateProductRequest request)
     {
         //Fast Fail
         //Guard Clauses (Önce olumsuzları yaz)
@@ -60,7 +68,7 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
         return ServiceResult.Success();
     }
 
-    public async Task<ServiceResult> DeleteProductAsync(int id)
+    public async Task<ServiceResult> DeleteAsync(int id)
     {
         var product = await productRepository.GetByIdAsync(id);
         if (product is null)
