@@ -18,6 +18,9 @@ public class ProductsController(IProductService productService) : CustomBaseCont
     public async Task<IActionResult> Create(CreateProductRequest request) => CreateActionResult(await productService.CreateAsync(request));
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id,UpdateProductRequest request) => CreateActionResult(await productService.UpdateAsync(id,request));
+
+    [HttpPatch("stock")]
+    public async Task<IActionResult> UpdateStock(UpdateProductStockRequest request) => CreateActionResult(await productService.UpdateStockAsync(request));
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id) => CreateActionResult(await productService.DeleteAsync(id));
 }
