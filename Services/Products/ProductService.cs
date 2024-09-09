@@ -3,6 +3,7 @@ using App.Repositories.Products;
 using App.Services.ExceptionHandlers;
 using App.Services.Products.Create;
 using App.Services.Products.Update;
+using App.Services.Products.UpdateStock;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -66,7 +67,7 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
     public async Task<ServiceResult<CreateProductResponse>> CreateAsync(CreateProductRequest request)
     {
         //throw new CriticalException("kritik seviyede bir hata meydana geldi");
-        throw new Exception("Db hatası");
+        //throw new Exception("Db hatası");
 
         // Async manuel service business check
         var anyProduct = await productRepository.Where(p => p.Name == request.Name).AnyAsync();
@@ -104,6 +105,12 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
         if (product is null)
         {
             return ServiceResult.Fail("Product not found", HttpStatusCode.NotFound);
+        }
+
+        var isProductNameExist = await productRepository.Where(p => p.Name == request.Name).AnyAsync();
+        if (isProductNameExist)
+        {
+            return ServiceResult.Fail("Ürün ismi veritabanında bulunmaktadır.", HttpStatusCode.BadRequest);
         }
 
         product.Name = request.Name;
