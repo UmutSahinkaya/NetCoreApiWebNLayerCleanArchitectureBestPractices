@@ -14,7 +14,7 @@ namespace App.Api.Controllers
         {
             return result.StatusCode switch
             {
-                HttpStatusCode.Created => Created(result.UrlAsCreated, result.Data),
+                HttpStatusCode.Created => Created(result.UrlAsCreated, result),
                 HttpStatusCode.NoContent => NoContent(),
                 _ => new ObjectResult(result) { StatusCode = result.StatusCode.GetHashCode() }
             };
