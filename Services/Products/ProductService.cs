@@ -107,7 +107,7 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
             return ServiceResult.Fail("Product not found", HttpStatusCode.NotFound);
         }
 
-        var isProductNameExist = await productRepository.Where(p => p.Name == request.Name).AnyAsync();
+        var isProductNameExist = await productRepository.Where(p => p.Name == request.Name && p.Id!=id).AnyAsync();
         if (isProductNameExist)
         {
             return ServiceResult.Fail("Ürün ismi veritabanında bulunmaktadır.", HttpStatusCode.BadRequest);
