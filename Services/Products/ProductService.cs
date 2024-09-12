@@ -1,6 +1,5 @@
 ﻿using App.Repositories;
 using App.Repositories.Products;
-using App.Services.ExceptionHandlers;
 using App.Services.Products.Create;
 using App.Services.Products.Update;
 using App.Services.Products.UpdateStock;
@@ -16,8 +15,9 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
     public async Task<ServiceResult<List<ProductDto>>> GetTopPriceProductsAsync(int count)
     {
         var products = await productRepository.GetTopPriceProductsAsync(count);
-        var productsAsDto = products.Select(p => new ProductDto(p.Id, p.Name, p.Price, p.Stock)).ToList();
+        //var productsAsDto = products.Select(p => new ProductDto(p.Id, p.Name, p.Price, p.Stock)).ToList();
 
+        var productsAsDto = mapper.Map<List<ProductDto>>(products);
         return new ServiceResult<List<ProductDto>>()
         {
             Data = productsAsDto
