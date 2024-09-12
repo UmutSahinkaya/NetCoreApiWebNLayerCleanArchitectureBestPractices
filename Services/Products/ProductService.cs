@@ -85,12 +85,8 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
         //}
         #endregion
 
-        var product = new Product()
-        {
-            Name = request.Name,
-            Price = request.Price,
-            Stock = request.Stock
-        };
+        var product = mapper.Map<Product>(request);
+
         await productRepository.AddAsync(product);
         await unitOfWork.SaveChangesAsync();
         return ServiceResult<CreateProductResponse>.SuccessAsCreated(new CreateProductResponse(product.Id),$"api/products/{product.Id}");
@@ -113,9 +109,11 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
             return ServiceResult.Fail("Ürün ismi veritabanında bulunmaktadır.", HttpStatusCode.BadRequest);
         }
 
-        product.Name = request.Name;
-        product.Price = request.Price;
-        product.Stock = request.Stock;
+        //product.Name = request.Name;
+        //product.Price = request.Price;
+        //product.Stock = request.Stock;
+
+        product=mapper.Map(request, product);
 
         productRepository.Update(product);
         await unitOfWork.SaveChangesAsync();
