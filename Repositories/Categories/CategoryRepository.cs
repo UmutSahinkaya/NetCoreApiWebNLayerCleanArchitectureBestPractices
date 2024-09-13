@@ -10,7 +10,7 @@ public class CategoryRepository(AppDbContext context) : GenericRepository<Catego
         return context.Categories
             .Include(c => c.Products).FirstOrDefaultAsync(x => x.Id == id);
     }
-    public IQueryable<Category> GetCategoryByProductsAsync()
+    public IQueryable<Category> GetCategoryWithProducts()
     {
        return context.Categories.Include(c => c.Products).AsQueryable();
     }
