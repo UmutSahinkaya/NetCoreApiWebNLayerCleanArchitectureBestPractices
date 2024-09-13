@@ -56,11 +56,11 @@ public class CategoryService(ICategoryRepository categoryRepository, IUnitOfWork
             return ServiceResult<int>.Fail("Kategori ismi veritabanında bulunmaktadır.", HttpStatusCode.BadRequest);
         }
 
-        var newCategory = new Category { Name = request.Name };
+        var newCategory = mapper.Map<Category>(request);
         await categoryRepository.AddAsync(newCategory);
         await unitOfWork.SaveChangesAsync();
 
-        return ServiceResult<int>.Success(newCategory.Id);
+        return ServiceResult<int>.SuccessAsCreated(newCategory.Id,$"api/categories/{newCategory.Id}");
     }
 
     public async Task<ServiceResult> UpdateAsync(int id, UpdateCategoryRequest request)

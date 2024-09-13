@@ -9,17 +9,17 @@ namespace App.Api.Controllers;
 public class CategoriesController(ICategoryService categoryService) : CustomBaseController
 {
     [HttpGet]
-    public async Task<IActionResult> GetCategories() => CreateActionResult(await categoryService.GetCategoriesAsync());
+    public async Task<IActionResult> GetCategories() => CreateActionResult(await categoryService.GetAllListAsync());
     [HttpGet("{id}:int")]
-    public async Task<IActionResult> GetCategoryById(int id) => CreateActionResult(await categoryService.GetCategoryByIdAsync(id));
+    public async Task<IActionResult> GetCategoryById(int id) => CreateActionResult(await categoryService.GetByIdAsync(id));
     [HttpGet("{id}/products")]
     public async Task<IActionResult> GetCategoryWithProducts(int id) => CreateActionResult(await categoryService.GetCategoryWithProductsAsync(id));
 
     [HttpGet("products")]
-    public async Task<IActionResult> GetCategoryWithProducts() => CreateActionResult(await categoryService.GetCategoryWithProductsAsync());
+    public async Task<IActionResult> GetCategoryWithProducts() => CreateActionResult(await categoryService.GetAllWithProductsAsync());
 
     [HttpPost]
-    public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest createCategoryDto) => CreateActionResult(await categoryService.CreateCategoryAsync(createCategoryDto));
+    public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest createCategoryDto) => CreateActionResult(await categoryService.CreateAsync(createCategoryDto));
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryRequest updateCategoryDto) => CreateActionResult(await categoryService.UpdateCategoryAsync(id, updateCategoryDto));
+    public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryRequest updateCategoryDto) => CreateActionResult(await categoryService.UpdateAsync(id, updateCategoryDto));
 }
