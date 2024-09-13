@@ -10,9 +10,9 @@ public class CategoriesController(ICategoryService categoryService) : CustomBase
 {
     [HttpGet]
     public async Task<IActionResult> GetCategories() => CreateActionResult(await categoryService.GetAllListAsync());
-    [HttpGet("{id}:int")]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> GetCategoryById(int id) => CreateActionResult(await categoryService.GetByIdAsync(id));
-    [HttpGet("{id}/products")]
+    [HttpGet("{id:int}/products")]
     public async Task<IActionResult> GetCategoryWithProducts(int id) => CreateActionResult(await categoryService.GetCategoryWithProductsAsync(id));
 
     [HttpGet("products")]
