@@ -1,7 +1,6 @@
 ﻿using App.Domain.Entities.Common;
 
 namespace App.Domain.Entities;
-
 public class Product:BaseEntity<int>,IAuditEntity
 {
     //public int Id { get; set; }
