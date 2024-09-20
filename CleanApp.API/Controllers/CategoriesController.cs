@@ -1,8 +1,9 @@
-﻿using App.Repositories.Categories;
-using App.Services.Categories;
-using App.Services.Categories.Create;
-using App.Services.Categories.Update;
-using App.Services.Filters;
+﻿using App.Application.Features.Categories;
+using App.Application.Features.Categories.Create;
+using App.Application.Features.Categories.Update;
+using App.Domain.Entities;
+using CleanApp.Api.Controllers;
+using CleanApp.API.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.Api.Controllers;
@@ -11,10 +12,8 @@ public class CategoriesController(ICategoryService categoryService) : CustomBase
 {
     [HttpGet]
     public async Task<IActionResult> GetCategories() => CreateActionResult(await categoryService.GetAllListAsync());
-
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetCategoryById(int id) => CreateActionResult(await categoryService.GetByIdAsync(id));
-
     [HttpGet("{id:int}/products")]
     public async Task<IActionResult> GetCategoryWithProducts(int id) => CreateActionResult(await categoryService.GetCategoryWithProductsAsync(id));
 
@@ -30,5 +29,5 @@ public class CategoriesController(ICategoryService categoryService) : CustomBase
 
     [ServiceFilter(typeof(NotFoundFilter<Category, int>))]
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> DeleteCategory(int id)=> CreateActionResult(await categoryService.DeleteAsync(id));
+    public async Task<IActionResult> DeleteCategory(int id) => CreateActionResult(await categoryService.DeleteAsync(id));
 }
