@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanApp.API", "CleanApp.AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Caching", "App.Caching\App.Caching.csproj", "{14362833-9350-465A-8438-05F9E27E471C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Bus", "App.Bus\App.Bus.csproj", "{69235A96-BDEC-4FA0-A609-BB2FB633A4FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{14362833-9350-465A-8438-05F9E27E471C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14362833-9350-465A-8438-05F9E27E471C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14362833-9350-465A-8438-05F9E27E471C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69235A96-BDEC-4FA0-A609-BB2FB633A4FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69235A96-BDEC-4FA0-A609-BB2FB633A4FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69235A96-BDEC-4FA0-A609-BB2FB633A4FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69235A96-BDEC-4FA0-A609-BB2FB633A4FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{568588E3-C4EC-4A96-A59D-0B93F48F241B} = {3B67E600-1701-4C8D-9DB6-70C024B28556}
 		{DDABA668-6934-4E26-A51B-0411B59CA2F6} = {D7DB39D8-FF7E-48B3-815C-14661B50E2F3}
 		{14362833-9350-465A-8438-05F9E27E471C} = {2F71F946-AE2D-4F6F-901B-77FF88C38528}
+		{69235A96-BDEC-4FA0-A609-BB2FB633A4FA} = {2F71F946-AE2D-4F6F-901B-77FF88C38528}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33F16D9F-CB1A-4D39-BB98-1AE617556E6D}
